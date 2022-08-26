@@ -1,0 +1,8 @@
+FROM ubi7/ubi:7.7 AS builder
+RUN yum -y install unzip
+
+COPY DO180.zip DO180.zip
+RUN  unzip DO180.zip && rm DO180.zip
+
+FROM registry.access.redhat.com/rhel7/rhel
+COPY --from=builder /DO180 /target
